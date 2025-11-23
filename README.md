@@ -33,4 +33,3 @@ A professional, single-page dashboard that visualizes Chess.com player data. Bui
 ## License
 
 For personal and educational use. Data provided by the [Chess.com Public API](https://www.chess.com/news/view/published-data-api).
-
