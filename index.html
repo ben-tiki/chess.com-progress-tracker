@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chess.com Progress Tracker</title>
+    <meta name="description" content="Executive dashboard for Chess.com player insights with rich charts." />
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="icon" type="image/x-icon" href="./assets/pawn.svg">
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <div class="title">
+          <h1>Progress Tracker</h1>
+          <p class="subtitle">Player Analysis Dashboard</p>
+        </div>
+      </div>
+      <div class="timezone" id="timezone"></div>
+    </header>
+
+    <main class="container">
+      <section class="panel search" aria-labelledby="search-title">
+        <h2 id="search-title">Analyze a player</h2>
+        <form id="search-form" class="search-form" autocomplete="off">
+          <div class="form-row">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text" inputmode="latin" placeholder="e.g. hikaru" aria-describedby="username-help" required autofocus />
+            <div id="username-help" class="help">Public Chess.com username (case-insensitive). Examples: hikaru, erik, fabianocaruana</div>
+          </div>
+          <div class="form-row">
+            <span class="label">Time controls</span>
+            <div class="chips" role="group" aria-label="Time controls">
+              <label class="chip"><input type="checkbox" name="controls" value="bullet" /> Bullet</label>
+              <label class="chip"><input type="checkbox" name="controls" value="blitz" /> Blitz</label>
+              <label class="chip"><input type="checkbox" name="controls" value="rapid" /> Rapid</label>
+              <label class="chip"><input type="checkbox" name="controls" value="daily" /> Daily</label>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Analyze</button>
+          </div>
+        </form>
+        <div class="status" id="status" role="status" aria-live="polite"></div>
+        <div class="progress" id="progress" hidden>
+          <div class="bar" id="progress-bar" style="width:0%"></div>
+          <div class="progress-text" id="progress-text"></div>
+        </div>
+      </section>
+
+      <section class="filters" aria-label="Filters">
+        <div class="filter-row">
+          <div class="filter-group">
+            <div class="filter-label">Color</div>
+            <div class="segmented" role="group" aria-label="Color filter">
+              <button class="segment" data-filter="color" data-value="all" aria-pressed="true">All</button>
+              <button class="segment" data-filter="color" data-value="white">White</button>
+              <button class="segment" data-filter="color" data-value="black">Black</button>
+            </div>
+          </div>
+          <div class="filter-group">
+            <div class="filter-label">Date Range</div>
+            <div class="segmented" role="group" aria-label="Date range">
+              <button class="segment" data-filter="range" data-value="all" aria-pressed="true">All Time</button>
+              <button class="segment" data-filter="range" data-value="1y">Last Year</button>
+              <button class="segment" data-filter="range" data-value="6m">6 Months</button>
+              <button class="segment" data-filter="range" data-value="3m">3 Months</button>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top: 16px; display: flex; justify-content: flex-start;">
+          <button id="btn-export-csv" class="btn" type="button">Copy Raw Data</button>
+        </div>
+      </section>
+
+      <section class="kpis grid" aria-label="Key performance indicators">
+        <div class="card kpi" id="kpi-current-rating"><div class="kpi-label">Current Rating</div><div class="kpi-value">&mdash;</div><div class="kpi-meta">From stats if available</div></div>
+        <div class="card kpi" id="kpi-peak-rating"><div class="kpi-label">Peak Rating</div><div class="kpi-value">&mdash;</div><div class="kpi-meta">Across selected controls</div></div>
+        <div class="card kpi" id="kpi-total-games"><div class="kpi-label">Games Analyzed</div><div class="kpi-value">&mdash;</div><div class="kpi-meta"></div></div>
+        <div class="card kpi" id="kpi-win-rate"><div class="kpi-label">Overall Win Rate</div><div class="kpi-value">&mdash;</div><div class="kpi-meta"></div></div>
+      </section>
+
+      <section class="grid charts" aria-label="Charts">
+        <div class="card chart" id="chart-rating" aria-label="Rating over time" role="img"></div>
+        
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <div>
+        Data from <a href="https://www.chess.com/news/view/published-data-api" target="_blank" rel="noopener">Chess.com Public API</a>. This is a community project.
+      </div>
+      <div>Examples: hikaru, erik, fabianocaruana</div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" crossorigin="anonymous"></script>
+    
+    <script type="module" src="./src/main.js"></script>
+  </body>
+  </html>
